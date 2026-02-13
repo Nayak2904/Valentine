@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Ananya ❤️</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700;900&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      width: 100vw;
+      touch-action: manipulation;
+      background-color: #000;
+    }
+
+    /* Background Image Logic */
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Initial image */
+      background-image: url('Holding_Hands.jpeg');
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      transition: background-image 0.5s ease-in-out;
+    }
+
+    /* Dark overlay to make text pop */
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+      transition: background 0.5s ease-in-out;
+    }
+
+    .heart-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: #ff4d6d;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.8;
+      }
+
+      90% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .dancing-emoji {
+      font-size: 80px;
+      display: inline-block;
+      animation: dance 1s infinite alternate ease-in-out;
+    }
+
+    @keyframes dance {
+      from {
+        transform: rotate(-20deg) translateY(0);
+      }
+
+      to {
+        transform: rotate(20deg) translateY(-20px);
+      }
+    }
+
+    .graffiti {
+      position: absolute;
+      font-family: 'Dancing Script', cursive;
+      font-weight: 900;
+      pointer-events: none;
+      z-index: 5;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0) rotate(-20deg);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1) rotate(var(--rotation));
+        opacity: 1;
+      }
+    }
+
+    #noButton {
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+  </style>
+</head>
+
+<body class="flex flex-col items-center justify-center p-4">
+  <!-- Background Layers -->
+  <div class="bg-image" id="bgImage"></div>
+  <div class="bg-overlay" id="bgOverlay"></div>
+  <div id="heartContainer" class="heart-bg"></div>
+
+  <!-- Main Proposal Section -->
+  <div id="proposalSection" class="z-10 text-center glass-card p-8 md:p-12 rounded-3xl max-w-lg w-full">
+    <h1 class="text-3xl md:text-5xl font-black text-white mb-8 leading-tight drop-shadow-lg">
+      ANANYA, WILL YOU BE MY VALENTINE?
+    </h1>
+
+    <div class="flex flex-row justify-center items-center gap-6 mt-10 min-h-[100px]">
+      <button id="yesButton"
+        class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg transform active:scale-95 transition-all">
+        YES!
+      </button>
+      <button id="noButton"
+        class="bg-gray-200 text-gray-800 font-bold py-4 px-10 rounded-full text-xl shadow-lg cursor-default">
+        NO
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Section (Hidden by default) -->
+  <div id="successSection" class="hidden z-20 text-center flex flex-col items-center">
+    <div class="dancing-emoji">💃✨</div>
+    <h1 class="text-5xl md:text-7xl font-black text-white mt-6 mb-4 drop-shadow-2xl">
+      I KNEW YOU LOVE ME!
+    </h1>
+    <div class="dancing-emoji">❤️🕺</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noButton');
+    const yesBtn = document.getElementById('yesButton');
+    const proposalSection = document.getElementById('proposalSection');
+    const successSection = document.getElementById('successSection');
+    const heartContainer = document.getElementById('heartContainer');
+    const bgImage = document.getElementById('bgImage');
+    const bgOverlay = document.getElementById('bgOverlay');
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('floating-heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      heartContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 300);
+
+    function moveButton() {
+      const padding = 60;
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      const maxWidth = window.innerWidth - btnWidth - padding;
+      const maxHeight = window.innerHeight - btnHeight - padding;
+
+      const newX = Math.max(padding, Math.random() * maxWidth);
+      const newY = Math.max(padding, Math.random() * maxHeight);
+
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+      noBtn.style.zIndex = '100';
+    }
+
+    noBtn.addEventListener('mouseover', moveButton);
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveButton();
+    });
+
+    yesBtn.addEventListener('click', () => {
+      proposalSection.classList.add('hidden');
+      successSection.classList.remove('hidden');
+
+      // Switch to the new background image
+      bgImage.style.backgroundImage = "url('/Holding_Arm.jpeg')";
+
+      // Make the background a bit brighter for the celebration
+      bgOverlay.style.background = 'rgba(0, 0, 0, 0.2)';
+
+      createGraffiti();
+      setInterval(createGraffitiPiece, 150);
+    });
+
+    function createGraffitiPiece() {
+      const words = ['FOREVER', 'MY LOVE', 'ANANYA', '❤️', 'YOU & ME', 'XOXO', 'ALWAYS'];
+      const colors = ['#ffffff', '#ff4d6d', '#ffeb3b', '#00e5ff', '#ff8fa3'];
+
+      const div = document.createElement('div');
+      div.className = 'graffiti';
+      div.innerText = words[Math.floor(Math.random() * words.length)];
+      div.style.left = Math.random() * 80 + 10 + '%';
+      div.style.top = Math.random() * 80 + 10 + '%';
+      div.style.color = colors[Math.floor(Math.random() * colors.length)];
+      div.style.fontSize = (Math.random() * 25 + 24) + 'px';
+      div.style.setProperty('--rotation', (Math.random() * 60 - 30) + 'deg');
+
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 4000);
+    }
+
+    function createGraffiti() {
+      for (let i = 0; i < 25; i++) {
+        setTimeout(createGraffitiPiece, i * 100);
+      }
+    }
+  </script>
+</body>
+
+</html>
