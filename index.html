@@ -13,38 +13,11 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
+      background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
       font-family: 'Poppins', sans-serif;
       height: 100vh;
       width: 100vw;
       touch-action: manipulation;
-      background-color: #000;
-    }
-
-    /* Background Image Logic */
-    .bg-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      /* Initial image */
-      background-image: url('/Holding_Hands.jpeg');
-      background-size: cover;
-      background-position: center;
-      z-index: -2;
-      transition: background-image 0.5s ease-in-out;
-    }
-
-    /* Dark overlay to make text pop */
-    .bg-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: -1;
-      transition: background 0.5s ease-in-out;
     }
 
     .heart-bg {
@@ -62,8 +35,7 @@
       color: #ff4d6d;
       font-size: 20px;
       animation: floatUp 6s linear infinite;
-      opacity: 0.8;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      opacity: 0.6;
     }
 
     @keyframes floatUp {
@@ -73,11 +45,11 @@
       }
 
       10% {
-        opacity: 0.8;
+        opacity: 0.6;
       }
 
       90% {
-        opacity: 0.8;
+        opacity: 0.6;
       }
 
       100% {
@@ -109,7 +81,6 @@
       pointer-events: none;
       z-index: 5;
       animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     @keyframes popIn {
@@ -120,7 +91,7 @@
 
       100% {
         transform: scale(1) rotate(var(--rotation));
-        opacity: 1;
+        opacity: 0.8;
       }
     }
 
@@ -130,24 +101,21 @@
     }
 
     .glass-card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 32px 0 rgba(255, 77, 109, 0.15);
     }
   </style>
 </head>
 
 <body class="flex flex-col items-center justify-center p-4">
-  <!-- Background Layers -->
-  <div class="bg-image" id="bgImage"></div>
-  <div class="bg-overlay" id="bgOverlay"></div>
   <div id="heartContainer" class="heart-bg"></div>
 
   <!-- Main Proposal Section -->
   <div id="proposalSection" class="z-10 text-center glass-card p-8 md:p-12 rounded-3xl max-w-lg w-full">
-    <h1 class="text-3xl md:text-5xl font-black text-white mb-8 leading-tight drop-shadow-lg">
+    <h1 class="text-3xl md:text-5xl font-black text-rose-600 mb-8 leading-tight">
       ANANYA, WILL YOU BE MY VALENTINE?
     </h1>
 
@@ -157,7 +125,7 @@
         YES!
       </button>
       <button id="noButton"
-        class="bg-gray-200 text-gray-800 font-bold py-4 px-10 rounded-full text-xl shadow-lg cursor-default">
+        class="bg-gray-400 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg cursor-default">
         NO
       </button>
     </div>
@@ -166,7 +134,7 @@
   <!-- Success Section (Hidden by default) -->
   <div id="successSection" class="hidden z-20 text-center flex flex-col items-center">
     <div class="dancing-emoji">💃✨</div>
-    <h1 class="text-5xl md:text-7xl font-black text-white mt-6 mb-4 drop-shadow-2xl">
+    <h1 class="text-5xl md:text-7xl font-black text-rose-600 mt-6 mb-4 drop-shadow-lg">
       I KNEW YOU LOVE ME!
     </h1>
     <div class="dancing-emoji">❤️🕺</div>
@@ -178,9 +146,8 @@
     const proposalSection = document.getElementById('proposalSection');
     const successSection = document.getElementById('successSection');
     const heartContainer = document.getElementById('heartContainer');
-    const bgImage = document.getElementById('bgImage');
-    const bgOverlay = document.getElementById('bgOverlay');
 
+    // Function to create floating hearts
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('floating-heart');
@@ -197,6 +164,7 @@
 
     setInterval(createHeart, 300);
 
+    // Logic to move the "NO" button within screen boundaries
     function moveButton() {
       const padding = 60;
       const btnWidth = noBtn.offsetWidth;
@@ -220,15 +188,10 @@
       moveButton();
     });
 
+    // "YES" button click logic
     yesBtn.addEventListener('click', () => {
       proposalSection.classList.add('hidden');
       successSection.classList.remove('hidden');
-
-      // Switch to the new background image
-      bgImage.style.backgroundImage = "url('/Holding_Arm.jpeg')";
-
-      // Make the background a bit brighter for the celebration
-      bgOverlay.style.background = 'rgba(0, 0, 0, 0.2)';
 
       createGraffiti();
       setInterval(createGraffitiPiece, 150);
@@ -236,7 +199,7 @@
 
     function createGraffitiPiece() {
       const words = ['FOREVER', 'MY LOVE', 'ANANYA', '❤️', 'YOU & ME', 'XOXO', 'ALWAYS'];
-      const colors = ['#ffffff', '#ff4d6d', '#ffeb3b', '#00e5ff', '#ff8fa3'];
+      const colors = ['#ff0054', '#ff4d6d', '#ff758f', '#ff8fa3', '#c9184a'];
 
       const div = document.createElement('div');
       div.className = 'graffiti';
@@ -244,15 +207,15 @@
       div.style.left = Math.random() * 80 + 10 + '%';
       div.style.top = Math.random() * 80 + 10 + '%';
       div.style.color = colors[Math.floor(Math.random() * colors.length)];
-      div.style.fontSize = (Math.random() * 25 + 24) + 'px';
-      div.style.setProperty('--rotation', (Math.random() * 60 - 30) + 'deg');
+      div.style.fontSize = (Math.random() * 20 + 24) + 'px';
+      div.style.setProperty('--rotation', (Math.random() * 40 - 20) + 'deg');
 
       document.body.appendChild(div);
       setTimeout(() => div.remove(), 4000);
     }
 
     function createGraffiti() {
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 20; i++) {
         setTimeout(createGraffitiPiece, i * 100);
       }
     }
